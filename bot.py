@@ -47,14 +47,9 @@ def get_schedule():
    data = json.loads(binary)
    for pair in data['pairs']:
       del pair_list[:]
-      # pair_list.append(data['pairs'][pair]['pair_name'])
-      # pair_list.append(data['pairs'][pair]['time'])
-      # schedule.append(pair_list)
-      pair_list.append(pair['pair_name'])
-      pair_list.append(pair['time'])
+      pair_list.append(pair['pair_name']+'\n')
+      pair_list.append(pair['time']+'\n\r')
       print(pair_list)
-      # schedule.append(pair['pair_name'])
-      # schedule.append(pair['time'])
       schedule.append(pair_list)
    print(schedule)
    text = ''
