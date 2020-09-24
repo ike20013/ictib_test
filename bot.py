@@ -52,9 +52,11 @@ def get_schedule():
       # schedule.append(pair_list)
       print(pair['pair_name'])
       print(pair['time'])
-      pair_list.append(pair['pair_name'])
-      pair_list.append(pair['time'])
-      schedule.append(pair_list)
+      # pair_list.append(pair['pair_name'])
+      # pair_list.append(pair['time'])
+      schedule.append(pair['pair_name'])
+      schedule.append(pair['time'])
+      # schedule.append(pair_list)
    print(schedule)
    text = ''
 
