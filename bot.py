@@ -24,7 +24,7 @@ def reply_to_message(message):
       sendMessage(message, 'Hello! How are you doing today?')
 @bot.message_handler(conten_types=['sticker'])
 def get_sticker(message):
-    print(message)
+    sendMessage(message, message.text)
 
 # SERVER SIDE 
 @server.route('/' + TOKEN, methods=['POST'])
