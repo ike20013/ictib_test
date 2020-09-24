@@ -1,13 +1,17 @@
 import os
 import telebot
+from telebot import types
 from flask import Flask, request
 
 TOKEN = '1271897314:AAG1c6rZ8JnGtRA2Mx1mJ1A7LOHCo_-ysVY'
 bot = telebot.TeleBot(token=TOKEN)
 server = Flask(__name__)
-keyboard1 = telebot.types.ReplyKeyboardMarkup(True, True)
+keyboard_main = types.ReplyKeyboardMarkup(True)
+keyboard_schedule = types.ReplyKeyboardMarkup(True)
 
-keyboard1.row('Я тебя люблю', 'как дела?', 'Пока')
+keyboard_main.row('Расписание группы')
+keyboard_schedule.row('Сегодня', 'Завтра', 'Понедельник', 'Вторни', 'Среда', 'Четверг', 'Пятница', 'Суббота','Назад')
+
 
 # Bot's Functionalities
 def sendMessage(message, text):
