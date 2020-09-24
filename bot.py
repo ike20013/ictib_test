@@ -41,15 +41,13 @@ def handle_text(message):
 def get_schedule():
    schedule = []
    pair_list = []
-   idx = 0
    url = "http://ictib.host1809541.hostland.pro/index.php/api/get_day_schedule?day=Втр&user_id=8745589874"
    resp = requests.get(url=url)
    binary = resp.content
    data = json.loads(binary)
-   for pair in data['pairs']:
+   for idx, pair in enumerate(data['pairs'], start=0):
       del pair_list[:]
-      idx += 1
-      pair_list.append("{} {} \n".format(idx, pair['time']))
+      pair_list.append("Пара №{}: {} \n".format(idx, pair['time']))
       pair_list.append(pair['pair_name'] + '\n\n')
       print(pair_list)
       schedule.append(pair_list)
@@ -57,7 +55,7 @@ def get_schedule():
    text = ''
 
    for schedules in schedule:
-      text += ' '.join(schedules)
+      text += '' + ''.join(schedules)
 
    # data = json.dumps(data)
    return text
