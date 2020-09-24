@@ -6,7 +6,8 @@ from telebot import types
 from flask import Flask, request
 import config
 import match
-import threading
+import requests
+import json 
 
 bot = telebot.TeleBot(config.token)
 server = Flask(__name__)
@@ -38,7 +39,11 @@ def handle_text(message):
       bot.send_message(message.chat.id, "....", reply_markup=markup_menu)
 
 def get_schedule():
-   return "hello"
+   url = "http://ictib.host1809541.hostland.pro/index.php/api/get_day_schedule?day=Втр&user_id=8745589874"
+   resp = requests.get(url=url)
+   data = resp.json()
+   data = json.dumps(data)
+   return data
 
 # SERVER SIDE 
 @server.route('/' + config.token, methods=['POST'])
