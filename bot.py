@@ -30,8 +30,14 @@ def handle_text(message):
       bot.send_message(message.chat.id, "Ну и нахуя", reply_markup=markup_menu)
    elif message.text == "Расписание группы":
       bot.send_message(message.chat.id, "Выберите день", reply_markup=markup_schedule)
+   elif message.text == "Сегодня":
+      text = await get_schedule()
+      bot.send_message(message.chat.id, text, reply_markup=markup_schedule)
    else:
       bot.send_message(message.chat.id, "....", reply_markup=markup_menu)
+
+async def get_schedule():
+   return "hello"
 
 # SERVER SIDE 
 @server.route('/' + config.token, methods=['POST'])
