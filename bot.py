@@ -27,8 +27,8 @@ def send_info(message):
 # This method will fire whenever the bot receives a message from a user, it will check that there is actually a not empty string in it and, in this case, it will check if there is the 'hello' word in it, if so it will reply with the message we defined
 @bot.message_handler(func=lambda msg: msg.text is not None)
 def reply_to_message(message):
-    if 'hello'in message.text.lower():
-      sendMessage(message, 'Hello! How are you doing today?')
+    if 'Расписание группы'in message.text.lower():
+      sendMessage(message, 'Выберите день', reply_markup=keyboard_main)
     elif 'я тебя люблю' in message.text.lower():
         bot.send_sticker(message.chat.id, 'CAADAgADZgkAAnlc4gmfCor5YbYYRAI')
 
