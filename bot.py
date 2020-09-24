@@ -3,7 +3,7 @@ import telebot
 from telebot import types
 from flask import Flask, request
 
-TOKEN = '1271897314:AAG1c6rZ8JnGtRA2Mx1mJ1A7LOHCo_-ysVY'
+# TOKEN = '1271897314:AAG1c6rZ8JnGtRA2Mx1mJ1A7LOHCo_-ysVY'
 bot = telebot.TeleBot(token=TOKEN)
 server = Flask(__name__)
 keyboard_main = types.ReplyKeyboardMarkup(True, True)
