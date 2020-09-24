@@ -50,7 +50,7 @@ def get_schedule():
       pair_list.append("Пара №{}: {} \n".format(idx, pair['time']))
       pair_list.append(pair['pair_name'] + '\n\n')
       print(pair_list)
-      schedule.append(pair_list)
+      schedule.append(pair_list[:])
       print(schedule)
    print(schedule)
    text = ''
