@@ -49,7 +49,8 @@ def get_schedule():
       # pair_list.append(data['pairs'][pair]['pair_name'])
       # pair_list.append(data['pairs'][pair]['time'])
       # schedule.append(pair_list)
-      print(pair)
+      print(pair['pair_name'])
+      print(pair['time'])
       schedule.append(pair)
    # data = json.dumps(data)
    return "hello"
