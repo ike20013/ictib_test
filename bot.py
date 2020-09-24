@@ -53,7 +53,7 @@ def get_schedule():
          print(pair_list)
          schedule.append(pair_list[:])
          print(schedule)
-      elif:
+      else:
          print(pair['pair_name'] + pair['time'])
    print(schedule)
    text = ''
