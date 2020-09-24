@@ -23,7 +23,7 @@ def send_info(message):
    "<b>Welcome to the Medium 🤖!</b>\n"
    "Say Hello to the bot to get a reply from it!"
    )
-   bot.send_message(message.chat.id, text, reply_markup=keyboard1, parse_mode='HTML')
+   bot.send_message(message.chat.id, text, reply_markup=keyboard_main, parse_mode='HTML')
 # This method will fire whenever the bot receives a message from a user, it will check that there is actually a not empty string in it and, in this case, it will check if there is the 'hello' word in it, if so it will reply with the message we defined
 @bot.message_handler(func=lambda msg: msg.text is not None)
 def reply_to_message(message):
