@@ -39,11 +39,19 @@ def handle_text(message):
       bot.send_message(message.chat.id, "....", reply_markup=markup_menu)
 
 def get_schedule():
+   schedule = []
+   pair = []
    url = "http://ictib.host1809541.hostland.pro/index.php/api/get_day_schedule?day=Втр&user_id=8745589874"
    resp = requests.get(url=url)
-   data = resp.json()
-   data = json.dumps(data)
-   return data
+   binary = resp.content
+   data = json.loads(binary)
+   for pair in data['pairs']:
+      for i in range(2):
+         value = data['pairs'][pair]
+         pair.append(value)
+      schedule.append(pair)
+   # data = json.dumps(data)
+   return ' '.join(schedule)
 
 # SERVER SIDE 
 @server.route('/' + config.token, methods=['POST'])
