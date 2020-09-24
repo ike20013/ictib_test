@@ -385,9 +385,6 @@ def handle_text(message):
             a += 0
 """
 
-
-bot.polling(none_stop=True, interval=0)
-
 """
 def log(message, answer):
     print("\n -----")
