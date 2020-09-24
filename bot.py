@@ -6,11 +6,14 @@ from flask import Flask, request
 TOKEN = '1271897314:AAG1c6rZ8JnGtRA2Mx1mJ1A7LOHCo_-ysVY'
 bot = telebot.TeleBot(token=TOKEN)
 server = Flask(__name__)
-keyboard_main = types.ReplyKeyboardMarkup(True)
+keyboard_main = types.ReplyKeyboardMarkup(True, True)
 keyboard_schedule = types.ReplyKeyboardMarkup(True)
 
 keyboard_main.row('Расписание группы')
-keyboard_schedule.row('Сегодня', 'Завтра', 'Понедельник', 'Вторни', 'Среда', 'Четверг', 'Пятница', 'Суббота','Назад')
+keyboard_schedule.row('Сегодня', 'Завтра')
+keyboard_schedule.row('Понедельник', 'Вторник', 'Среда')
+keyboard_schedule.row('Четверг', 'Пятница', 'Суббота')
+keyboard_schedule.row('Назад')
 
 
 # Bot's Functionalities
@@ -23,12 +26,12 @@ def send_info(message):
    "<b>Welcome to the Medium 🤖!</b>\n"
    "Say Hello to the bot to get a reply from it!"
    )
-   bot.send_message(message.chat.id, text, reply_markup=keyboard_schedule, parse_mode='HTML')
+   bot.send_message(message.chat.id, text, reply_markup=keyboard_main, parse_mode='HTML')
 # This method will fire whenever the bot receives a message from a user, it will check that there is actually a not empty string in it and, in this case, it will check if there is the 'hello' word in it, if so it will reply with the message we defined
 @bot.message_handler(content_types=["text"])
 def reply_to_message(message):
    if 'Расписание группы' in message.text.lower():
-      bot.send_message(message.chat.id, 'Выберите день', reply_markup=keyboard_schedule)
+      bot.send_message(message.chat.id, 'Выберите день', reply_markup=keyboard_schedule, parse_mode='HTML')
    elif 'я тебя люблю' in message.text.lower():
       bot.send_sticker(message.chat.id, 'CAADAgADZgkAAnlc4gmfCor5YbYYRAI')
 
