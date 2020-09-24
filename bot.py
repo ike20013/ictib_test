@@ -10,7 +10,7 @@ keyboard_main = types.ReplyKeyboardMarkup(True)
 keyboard_schedule = types.ReplyKeyboardMarkup(True)
 
 keyboard_main.row('Расписание группы')
-keyboard_schedule.row('Сегодня', 'Завтра', 'Понедельник', 'Вторни', 'Среда', 'Четверг', 'Пятница', 'Суббота','Назад')
+keyboard_schedule.row('Сегодня', 'Завтра', 'Понедельник')
 
 
 # Bot's Functionalities
