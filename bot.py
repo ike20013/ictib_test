@@ -51,11 +51,12 @@ def get_schedule():
       pair_list.append(pair['pair_name'] + '\n\n')
       print(pair_list)
       schedule.append(pair_list)
+      print(schedule)
    print(schedule)
    text = ''
 
    for schedules in schedule:
-      text += '' + ''.join(schedules)
+      text += '' + ' '.join(schedules)
 
    # data = json.dumps(data)
    return text
