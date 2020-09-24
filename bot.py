@@ -48,7 +48,7 @@ def get_schedule():
    for pair in data['pairs']:
       del pair_list[:]
       pair_list.append(pair['pair_name']+'\n')
-      pair_list.append(pair['time']+'\n\r')
+      pair_list.append(pair['time']+'\n\n')
       print(pair_list)
       schedule.append(pair_list)
    print(schedule)
