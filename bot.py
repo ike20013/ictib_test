@@ -56,8 +56,9 @@ def get_schedule():
       pair_list.append(pair['time'])
       schedule.append(pair_list)
    print(schedule)
+   text = ' '.join(schedule)
    # data = json.dumps(data)
-   return "hello"
+   return text
 
 # SERVER SIDE 
 @server.route('/' + config.token, methods=['POST'])
