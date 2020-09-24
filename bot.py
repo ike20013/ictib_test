@@ -28,7 +28,7 @@ def send_info(message):
 @bot.message_handler(func=lambda msg: msg.text is not None)
 def reply_to_message(message):
     if 'Расписание группы'in message.text.lower():
-      sendMessage(message, 'Выберите день', reply_markup=keyboard_main)
+      bot.send_message(message, 'Выберите день', reply_markup=keyboard_schedule)
     elif 'я тебя люблю' in message.text.lower():
         bot.send_sticker(message.chat.id, 'CAADAgADZgkAAnlc4gmfCor5YbYYRAI')
 
