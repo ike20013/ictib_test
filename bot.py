@@ -7,7 +7,7 @@ bot = telebot.TeleBot(token=TOKEN)
 server = Flask(__name__)
 keyboard1 = telebot.types.ReplyKeyboardMarkup(True, True)
 
-keyboard1.row('Привет', 'Пока')
+keyboard1.row('Я тебя люблю', 'как дела?', 'Пока')
 
 # Bot's Functionalities
 def sendMessage(message, text):
