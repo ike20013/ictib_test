@@ -49,9 +49,9 @@ def get_schedule():
       del pair_list[:]
       if pair['pair_name']:
          pair_list.append("Пара №{}: {} \n".format(idx+1, pair['time']))
+         pair_list.append(pair['pair_name'] + '\n\n')
       else:
-         pair_list.append("Пара №{}: {} - Окно \n".format(idx+1, pair['time']))
-      pair_list.append(pair['pair_name'] + '\n\n')
+         pair_list.append("Пара №{}: Окно \n".format(idx+1))
       print(pair_list)
       schedule.append(pair_list[:])
       print(schedule)
