@@ -45,17 +45,17 @@ def get_schedule():
    resp = requests.get(url=url)
    binary = resp.content
    data = json.loads(binary)
-   for pair in data['pairs']:
+   for idx, pair in data['pairs']:
       del pair_list[:]
-      pair_list.append(pair['pair_name']+'\n')
-      pair_list.append(pair['time']+'\n\n')
+      pair_list.append(str(idx) + pair['time'] + '\n')
+      pair_list.append(pair['pair_name'] + '\n\n')
       print(pair_list)
       schedule.append(pair_list)
    print(schedule)
    text = ''
 
    for schedules in schedule:
-      text += ' ' + ' '.join(schedules)
+      text += ' '.join(schedules)
 
    # data = json.dumps(data)
    return text
