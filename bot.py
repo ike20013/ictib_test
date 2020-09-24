@@ -40,15 +40,14 @@ def handle_text(message):
 
 def get_schedule():
    schedule = []
-   pair = []
+   pair_list = []
    url = "http://ictib.host1809541.hostland.pro/index.php/api/get_day_schedule?day=Втр&user_id=8745589874"
    resp = requests.get(url=url)
    binary = resp.content
    data = json.loads(binary)
    for pair in data['pairs']:
-      for i in range(2):
-         value = data['pairs'][pair]
-         pair.append(value)
+      pair_list.append(data['pairs'][pair]['pair_name'])
+      pair_list.append(data['pairs'][pair]['time'])
       schedule.append(pair)
    # data = json.dumps(data)
    return ' '.join(schedule)
