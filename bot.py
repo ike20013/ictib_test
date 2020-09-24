@@ -48,13 +48,13 @@ def get_schedule():
    for idx, pair in enumerate(data['pairs'], start=0):
       del pair_list[:]
       if pair['pair_name']:
-         pair_list.append("Пара №{}: {} \n".format(idx, pair['time']))
-         pair_list.append(pair['pair_name'] + '\n\n')
-         print(pair_list)
-         schedule.append(pair_list[:])
-         print(schedule)
+         pair_list.append("Пара №{}: {} \n".format(idx+1, pair['time']))
       else:
-         print(pair['pair_name'] + pair['time'])
+         pair_list.append("Пара №{}: {} - Окно \n".format(idx+1, pair['time']))
+      pair_list.append(pair['pair_name'] + '\n\n')
+      print(pair_list)
+      schedule.append(pair_list[:])
+      print(schedule)
    print(schedule)
    text = ''
 
