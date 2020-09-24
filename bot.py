@@ -6,6 +6,7 @@ from telebot import types
 from flask import Flask, request
 import config
 import match
+import threading
 
 bot = telebot.TeleBot(config.token)
 server = Flask(__name__)
@@ -31,12 +32,12 @@ def handle_text(message):
    elif message.text == "Расписание группы":
       bot.send_message(message.chat.id, "Выберите день", reply_markup=markup_schedule)
    elif message.text == "Сегодня":
-      text = await get_schedule()
+      text = get_schedule()
       bot.send_message(message.chat.id, text, reply_markup=markup_schedule)
    else:
       bot.send_message(message.chat.id, "....", reply_markup=markup_menu)
 
-async def get_schedule():
+def get_schedule():
    return "hello"
 
 # SERVER SIDE 
