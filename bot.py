@@ -33,17 +33,38 @@ def handle_text(message):
    elif message.text == "Расписание группы":
       bot.send_message(message.chat.id, "Выберите день", reply_markup=markup_schedule)
    elif message.text == "Сегодня":
-      text = get_schedule()
+      text = get_schedule('Втр')
+      bot.send_message(message.chat.id, text, reply_markup=markup_schedule)
+   elif message.text == "Завтра":
+      text = get_schedule('Срд')
+      bot.send_message(message.chat.id, text, reply_markup=markup_schedule)
+   elif message.text == "Понедельник":
+      text = get_schedule('Пнд')
+      bot.send_message(message.chat.id, text, reply_markup=markup_schedule)
+   elif message.text == "Вторник":
+      text = get_schedule('Втр')
+      bot.send_message(message.chat.id, text, reply_markup=markup_schedule) 
+   elif message.text == "Среда":
+      text = get_schedule('Срд')
+      bot.send_message(message.chat.id, text, reply_markup=markup_schedule)
+   elif message.text == "Четверг":
+      text = get_schedule('Чтв')
+      bot.send_message(message.chat.id, text, reply_markup=markup_schedule)
+   elif message.text == "Пятница":
+      text = get_schedule('Птн')
+      bot.send_message(message.chat.id, text, reply_markup=markup_schedule)
+   elif message.text == "Суббота":
+      text = get_schedule('Сбт')
       bot.send_message(message.chat.id, text, reply_markup=markup_schedule)
    else:
       bot.send_message(message.chat.id, "....", reply_markup=markup_menu)
 
-def get_schedule():
+def get_schedule(day):
    schedule = []
    pair_list = []
    url = "http://ictib.host1809541.hostland.pro/index.php/api/get_day_schedule"
    params = dict(
-      day='Втр',
+      day=day,
       user_id='8745589874'
    )
    resp = requests.get(url=url, params=params)
