@@ -47,7 +47,7 @@ def get_schedule():
    data = json.loads(binary)
    for idx, pair in data['pairs']:
       del pair_list[:]
-      pair_list.append(str(idx) + pair['time'] + '\n')
+      pair_list.append("{} {} \n".format(idx, pair['time']))
       pair_list.append(pair['pair_name'] + '\n\n')
       print(pair_list)
       schedule.append(pair_list)
