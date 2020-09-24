@@ -46,8 +46,9 @@ def get_schedule():
    binary = resp.content
    data = json.loads(binary)
    for pair in data['pairs']:
-      pair_list.append(data['pairs'][pair]['pair_name'])
-      pair_list.append(data['pairs'][pair]['time'])
+      # pair_list.append(data['pairs'][pair]['pair_name'])
+      # pair_list.append(data['pairs'][pair]['time'])
+      # schedule.append(pair_list)
       schedule.append(pair)
    # data = json.dumps(data)
    return ' '.join(schedule)
