@@ -5,7 +5,7 @@ from flask import Flask, request
 TOKEN = '1271897314:AAG1c6rZ8JnGtRA2Mx1mJ1A7LOHCo_-ysVY'
 bot = telebot.TeleBot(token=TOKEN)
 server = Flask(__name__)
-keyboard1 = telebot.types.ReplyKeyboardMarkup()
+keyboard1 = telebot.types.ReplyKeyboardMarkup(True, True)
 
 keyboard1.row('Привет', 'Пока')
 
@@ -23,11 +23,10 @@ def send_info(message):
 # This method will fire whenever the bot receives a message from a user, it will check that there is actually a not empty string in it and, in this case, it will check if there is the 'hello' word in it, if so it will reply with the message we defined
 @bot.message_handler(func=lambda msg: msg.text is not None)
 def reply_to_message(message):
-   if 'hello'in message.text.lower():
+    if 'hello'in message.text.lower():
       sendMessage(message, 'Hello! How are you doing today?')
-@bot.message_handler(conten_types=['sticker'])
-def get_sticker(message):
-    sendMessage(message, message.text)
+    elif 'я тебя люблю' in message.text.lower():
+        bot.send_sticker(message.chat.id, 'CAADAgADZgkAAnlc4gmfCor5YbYYRAI')
 
 # SERVER SIDE 
 @server.route('/' + TOKEN, methods=['POST'])
