@@ -99,20 +99,27 @@ def get_day_of_week(today):
    print(day)
    if not today:
       day += 1
-   if day == 1 or 8:
+   if day == 1:
+      print('Пнд')
       return 'Пнд'
    elif day == 2:
-       return 'Втр'
+      print('Втр')
+      return 'Втр'
    elif day == 3:
-       return 'Срд'
+      print('Срд')
+      return 'Срд'
    elif day == 4:
-       return 'Чтв'
+      print('Чтв')
+      return 'Чтв'
    elif day == 5:
-       return 'Птн'   
+      print('Птн')
+      return 'Птн'   
    elif day == 6:
-       return 'Сбт' 
-   elif day == 7:
-       return 'Пнд'
+      print('Сбт')
+      return 'Сбт' 
+   else:
+      print('undefined')
+      return 'Пнд'
 
 # SERVER SIDE 
 @server.route('/' + config.token, methods=['POST'])
