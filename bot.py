@@ -97,7 +97,7 @@ def get_schedule(day):
 def get_day_of_week(today):
    day = datetime.datetime.today().weekday()
    if today:
-      continue
+      day = day
    else:
       day += 1
    if day == 1 or 8:
