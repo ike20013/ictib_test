@@ -60,7 +60,7 @@ def handle_text(message):
       text = get_schedule('Сбт')
       bot.send_message(message.chat.id, text, reply_markup=markup_schedule)
    else:
-      bot.send_message(message.chat.id, "....", reply_markup=markup_menu)
+      bot.send_message(message.chat.id, "Вы вернулись назад", reply_markup=markup_menu)
 
 def get_schedule(day):
    schedule = []
