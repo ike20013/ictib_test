@@ -8,6 +8,7 @@ import config
 import match
 import requests
 import json 
+import datetime
 
 bot = telebot.TeleBot(config.token)
 server = Flask(__name__)
@@ -33,10 +34,12 @@ def handle_text(message):
    elif message.text == "Расписание группы":
       bot.send_message(message.chat.id, "Выберите день", reply_markup=markup_schedule)
    elif message.text == "Сегодня":
-      text = get_schedule('Втр')
+      day = get_day_of_week(True)
+      text = get_schedule(day)
       bot.send_message(message.chat.id, text, reply_markup=markup_schedule)
    elif message.text == "Завтра":
-      text = get_schedule('Срд')
+      day = get_day_of_week(False)
+      text = get_schedule(day)
       bot.send_message(message.chat.id, text, reply_markup=markup_schedule)
    elif message.text == "Понедельник":
       text = get_schedule('Пнд')
@@ -86,10 +89,31 @@ def get_schedule(day):
    for schedules in schedule:
       text += '' + ''.join(schedules)
    
-   text = "Дата - {}\n Неделя - {}\n\n {}".format(data['day'], data['week'], text)
+   text = "Дата - {}\nНеделя - {}\n\n{}".format(data['day'], data['week'], text)
 
-   # data = json.dumps(data)
+   # data = json.dumps(data) 
    return text
+
+def get_day_of_week(today):
+   day = datetime.datetime.today().weekday()
+   if today:
+      continue
+   else:
+      day += 1
+   if day == 1 or 8:
+      return 'Пнд'
+   if day == 2:
+       return 'Втр'
+   if day == 3:
+       return 'Срд'
+   if day == 4:
+       return 'Чтв'
+   if day == 5:
+       return 'Птн'   
+   if day == 6:
+       return 'Сбт' 
+   if day == 7:
+       return 'Пнд'
 
 # SERVER SIDE 
 @server.route('/' + config.token, methods=['POST'])
