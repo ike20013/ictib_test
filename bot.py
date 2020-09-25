@@ -95,7 +95,7 @@ def get_schedule(day):
    return text
 
 def get_day_of_week(today):
-   day = datetime.datetime.today().weekday()
+   day = datetime.datetime.today().weekday()+1
    print(datetime.datetime.today())
    print(day)
    if not today:
