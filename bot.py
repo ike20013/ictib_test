@@ -85,6 +85,8 @@ def get_schedule(day):
 
    for schedules in schedule:
       text += '' + ''.join(schedules)
+   
+   text = "Дата - {}\n Неделя - {}\n\n {}".format(data['date'], data['week'], text)
 
    # data = json.dumps(data)
    return text
