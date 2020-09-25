@@ -101,17 +101,17 @@ def get_day_of_week(today):
       day += 1
    if day == 1 or 8:
       return 'Пнд'
-   if day == 2:
+   elif day == 2:
        return 'Втр'
-   if day == 3:
+   elif day == 3:
        return 'Срд'
-   if day == 4:
+   elif day == 4:
        return 'Чтв'
-   if day == 5:
+   elif day == 5:
        return 'Птн'   
-   if day == 6:
+   elif day == 6:
        return 'Сбт' 
-   if day == 7:
+   elif day == 7:
        return 'Пнд'
 
 # SERVER SIDE 
