@@ -24,6 +24,7 @@ markup_schedule.row('Понедельник', 'Вторник', 'Среда')
 markup_schedule.row('Четверг', 'Пятница', 'Суббота')
 markup_schedule.row('Назад')
 
+markup_info = types.ReplyKeyboardMarkup(resize_keyboard=True)
 markup_info.row('Основные сайты')
 markup_info.row('Группы Вконтакте')
 markup_info.row('Информация о корпусах')
@@ -39,6 +40,8 @@ def handle_text(message):
       bot.send_message(message.chat.id, "Ну и нахуя", reply_markup=markup_menu)
    elif message.text == "Расписание группы":
       bot.send_message(message.chat.id, "Выберите день", reply_markup=markup_schedule)
+   elif message.text == "Информация о вузе":
+      bot.send_message(message.chat.id, "Какая информация вам инетерсна?", reply_markup=markup_info)
    elif message.text == "Сегодня":
       day = get_day_of_week(True)
       text = get_schedule(day)
