@@ -47,7 +47,7 @@ def handle_text(message):
    elif message.text == "Расписание группы":
       bot.send_message(message.chat.id, "Выберите день", reply_markup=markup_schedule)
    elif message.text == "Информация о вузе":
-      bot.send_message(message.chat.id, "Какая информация вам инетерсна?", reply_markup=markup_info)
+      bot.send_message(message.chat.id, "Какая информация вам инетересна?", reply_markup=markup_info)
    elif message.text == "Информация о корпусах":
       bot.send_message(message.chat.id, "Выберете корпус", reply_markup=markup_corps)
    elif message.text == "Сегодня":
@@ -78,10 +78,10 @@ def handle_text(message):
       bot.send_message(message.chat.id, text, reply_markup=markup_schedule)
    elif message.text == "Основные сайты":
       text = '\u25b6\ufe0f [<Личный кабинет студента>](<https://sfedu.ru/www/stat_pages22.show?p=STD/lks/D>)\n\u25b6\ufe0f [<LMS>](<https://lms.sfedu.ru>)\n\u25b6\ufe0f [<БРС>](<https://grade.sfedu.ru/>)\n\u25b6\ufe0f [<Сайт ИКТИБа>](<http://ictis.sfedu.ru/>)\n\u25b6\ufe0f [<Проектный офис ИКТИБ>](<https://proictis.sfedu.ru/>)'
-      bot.send_message(message.chat.id, text, reply_markup=markup_info)
+      bot.send_message(message.chat.id, text, reply_markup=markup_info, parse_mode='MarkdownV2')
    elif message.text == "Группы Вконтакте":
       text = '\u27a1\ufe0f [<Физическая культура в ИТА ЮФУ>](<https://vk.com/club101308251>)\n\u27a1\ufe0f [<Подслушано в ЮФУ>](<https://vk.com/overhearsfedu>)\n\u27a1\ufe0f [<ИКТИБ ЮФУ>](<https://vk.com/ictis_sfedu>)\n\u27a1\ufe0f [<Студенческий клуб ИТА ЮФУ (г. Таганрог)>](<https://vk.com/studclub_tgn>)\n\u27a1\ufe0f [<Студенческий киберспортивный клуб ЮФУ>](<https://vk.com/esports_sfedu>)\n\u27a1\ufe0f [<Культура здоровья в ИТА ЮФУ>](<https://vk.com/club150688847>)\n\u27a1\ufe0f [<ПервокурсникиУ>](<https://vk.com/1kurs_ita_2019>)\n\u27a1\ufe0f [<Технологии + Проекты + Инновации → ИКТИБ>](<https://vk.com/proictis>)\n\u27a1\ufe0f [<Волонтерский центр ИКТИБ ЮФУ>](<https://vk.com/ictis_vol>)'
-      bot.send_message(message.chat.id, text, reply_markup=markup_info)
+      bot.send_message(message.chat.id, text, reply_markup=markup_info, parse_mode='MarkdownV2')
    elif message.text == "Корпус А":
       text = "Таганрог, улица Чехова, 22"
       bot.send_location(chat_id='@shoraga_test', latitude="47°12′19″", longitude="38°56′23″")
