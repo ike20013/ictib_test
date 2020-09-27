@@ -27,6 +27,7 @@ markup_schedule.row('Назад')
 markup_info.row('Основные сайты')
 markup_info.row('Группы Вконтакте')
 markup_info.row('Информация о корпусах')
+markup_info.row('Назад')
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
