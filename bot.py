@@ -16,12 +16,17 @@ TOKEN = config.token
 
 markup_menu = types.ReplyKeyboardMarkup(resize_keyboard=True)
 markup_menu.row('Расписание группы')
+markup_menu.row('Информация о вузе')
 
 markup_schedule = types.ReplyKeyboardMarkup(resize_keyboard=True)
 markup_schedule.row('Сегодня', 'Завтра')
 markup_schedule.row('Понедельник', 'Вторник', 'Среда')
 markup_schedule.row('Четверг', 'Пятница', 'Суббота')
 markup_schedule.row('Назад')
+
+markup_info.row('Основные сайты')
+markup_info.row('Группы Вконтакте')
+markup_info.row('Информация о корпусах')
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
@@ -59,6 +64,12 @@ def handle_text(message):
    elif message.text == "Суббота":
       text = get_schedule('Сбт')
       bot.send_message(message.chat.id, text, reply_markup=markup_schedule)
+   elif message.text == "Основные сайты":
+      text = '\u25b6\ufe0f [<Личный кабинет студента>](<https://sfedu.ru/www/stat_pages22.show?p=STD/lks/D>)\n\u25b6\ufe0f [<LMS>](<https://lms.sfedu.ru>)\n\u25b6\ufe0f [<БРС>](<https://grade.sfedu.ru/>)\n\u25b6\ufe0f [<Сайт ИКТИБа>](<http://ictis.sfedu.ru/>)\n\u25b6\ufe0f [<Проектный офис ИКТИБ>](<https://proictis.sfedu.ru/>)'
+      bot.send_message(message.chat.id, text, reply_markup=markup_info)
+    elif message.text == "Группы Вконтакте":
+      text = '\u27a1\ufe0f [<Физическая культура в ИТА ЮФУ>](<https://vk.com/club101308251>)\n\u27a1\ufe0f [<Подслушано в ЮФУ>](<https://vk.com/overhearsfedu>)\n\u27a1\ufe0f [<ИКТИБ ЮФУ>](<https://vk.com/ictis_sfedu>)\n\u27a1\ufe0f [<Студенческий клуб ИТА ЮФУ (г. Таганрог)>](<https://vk.com/studclub_tgn>)\n\u27a1\ufe0f [<Студенческий киберспортивный клуб ЮФУ>](<https://vk.com/esports_sfedu>)\n\u27a1\ufe0f [<Культура здоровья в ИТА ЮФУ>](<https://vk.com/club150688847>)\n\u27a1\ufe0f [<ПервокурсникиУ>](<https://vk.com/1kurs_ita_2019>)\n\u27a1\ufe0f [<Технологии + Проекты + Инновации → ИКТИБ>](<https://vk.com/proictis>)\n\u27a1\ufe0f [<Волонтерский центр ИКТИБ ЮФУ>](<https://vk.com/ictis_vol>)'
+      bot.send_message(message.chat.id, text, reply_markup=markup_info)
    else:
       bot.send_message(message.chat.id, "Вы вернулись назад", reply_markup=markup_menu)
 
