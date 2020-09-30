@@ -16,6 +16,8 @@ TOKEN = config.token
 
 markup_menu = types.ReplyKeyboardMarkup(resize_keyboard=True)
 markup_menu.row('Расписание группы')
+markup_menu.row('Изменение расписания')
+markup_menu.row('Собственное расписание')
 markup_menu.row('Информация о вузе')
 
 markup_schedule = types.ReplyKeyboardMarkup(resize_keyboard=True)
