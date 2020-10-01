@@ -25,7 +25,10 @@ markup_schedule.row('Назад')
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-    bot.send_message(message.chat.id, "Добро пожаловать, введите группу (Пример КТбо2-3)", reply_markup = markup_menu)
+    bot.send_message(message.chat.id, "Добро пожаловать, введите группу (Пример КТбо2-3)")
+    @bot.message_handler(content_types=['text'])
+    if message.text:
+       bot.send_message(message.chat.id, message.text, reply_markup=markup_menu)
 
 @bot.message_handler(content_types=['text'])
 def handle_text(message):
