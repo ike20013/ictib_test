@@ -57,13 +57,12 @@ def reg_user(message):
 
     if data['success'] == 'true':
         text = 'Все окей'
-        bot.send_message(chat_id, text)
+        bot.send_message(chat_id, text, reply_markup=markup_menu)
     elif data['success'] == 'false':
         msg = bot.reply_to(message, "Повтори")
         bot.register_next_step_handler(msg, reg_user)
     else:
-        msg = bot.reply_to(message, "Ты уже есть")
-        bot.register_next_step_handler(msg, reg_user)
+        bot.send_message(message.chat.id, "Ты уже есть", reply_markup=markup_menu)
 
 @bot.message_handler(content_types=['text'])
 def handle_text(message):
@@ -185,7 +184,7 @@ def get_day_of_week(today):
       print('undefined')
       return 'Пнд'
 
-SERVER SIDE 
+# SERVER SIDE 
 @server.route('/' + config.token, methods=['POST'])
 def getMessage():
    bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
