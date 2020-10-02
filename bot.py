@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
-
 import os
 import telebot
 from telebot import types
-from flask import Flask, request
+# from flask import Flask, request
 import config
 import match
 import requests
@@ -11,7 +9,7 @@ import json
 import datetime
 
 bot = telebot.TeleBot(config.token)
-server = Flask(__name__)
+# server = Flask(__name__)
 TOKEN = config.token
 
 markup_menu = types.ReplyKeyboardMarkup(resize_keyboard=True)
@@ -40,19 +38,39 @@ markup_corps.row('Назад')
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-    bot.send_message(message.chat.id, "Добро пожаловать, введите группу (Пример КТбо2-3)")
-    handle_group(message)
+    msg = bot.send_message(message.chat.id, "Добро пожаловать, введите группу (Пример КТбо2-3)")
+    bot.register_next_step_handler(msg, reg_user)
 
-@bot.message_handler(content_types=['text'])
-def handle_group(message):
-   if message.text:
-      bot.send_message(message.chat.id, message.text, reply_markup=markup_menu)
+def reg_user(message):
+    url = "http://ictib.host1809541.hostland.pro/index.php/api/reg_user"
+    print(message.text)
+    params = dict(
+       user_id=message.from_user.id,
+       user_group=message.text
+    )
+    resp = requests.get(url=url, params=params)
+    print(resp.content)
+    binary = resp.content
+    data = json.loads(binary)
+
+    chat_id = message.chat.id
+
+    if data['success'] == 'true':
+        text = 'Все окей'
+        bot.send_message(chat_id, text)
+    elif data['success'] == 'false':
+        msg = bot.reply_to(message, "Повтори")
+        bot.register_next_step_handler(msg, reg_user)
+    else:
+        msg = bot.reply_to(message, "Ты уже есть")
+        bot.register_next_step_handler(msg, reg_user)
 
 @bot.message_handler(content_types=['text'])
 def handle_text(message):
    if message.text == "1":
       bot.send_message(message.chat.id, "Ну и нахуя", reply_markup=markup_menu)
    elif message.text == "Расписание группы":
+      week = get_week_schedule(message.from_user.id)
       bot.send_message(message.chat.id, "Выберите день", reply_markup=markup_schedule)
    elif message.text == "Информация о вузе":
       bot.send_message(message.chat.id, "Какая информация вам инетересна?", reply_markup=markup_info)
@@ -60,52 +78,62 @@ def handle_text(message):
       bot.send_message(message.chat.id, "Выберете корпус", reply_markup=markup_corps)
    elif message.text == "Сегодня":
       day = get_day_of_week(True)
-      text = get_schedule(day)
+      text = get_schedule(day, message.from_user.id)
       bot.send_message(message.chat.id, text, reply_markup=markup_schedule)
    elif message.text == "Завтра":
       day = get_day_of_week(False)
-      text = get_schedule(day)
+      text = get_schedule(day, message.from_user.id)
       bot.send_message(message.chat.id, text, reply_markup=markup_schedule)
    elif message.text == "Понедельник":
-      text = get_schedule('Пнд')
+      text = get_schedule('Пнд', message.from_user.id)
       bot.send_message(message.chat.id, text, reply_markup=markup_schedule)
    elif message.text == "Вторник":
-      text = get_schedule('Втр')
+      text = get_schedule('Втр', message.from_user.id)
       bot.send_message(message.chat.id, text, reply_markup=markup_schedule) 
    elif message.text == "Среда":
-      text = get_schedule('Срд')
+      text = get_schedule('Срд', message.from_user.id)
       bot.send_message(message.chat.id, text, reply_markup=markup_schedule)
    elif message.text == "Четверг":
-      text = get_schedule('Чтв')
+      text = get_schedule('Чтв', message.from_user.id)
       bot.send_message(message.chat.id, text, reply_markup=markup_schedule)
    elif message.text == "Пятница":
-      text = get_schedule('Птн')
+      text = get_schedule('Птн', message.from_user.id)
       bot.send_message(message.chat.id, text, reply_markup=markup_schedule)
    elif message.text == "Суббота":
-      text = get_schedule('Сбт')
+      text = get_schedule('Сбт', message.from_user.id)
       bot.send_message(message.chat.id, text, reply_markup=markup_schedule)
    elif message.text == "Основные сайты":
-      text = '\u25b6\ufe0f [<Личный кабинет студента>](<https://sfedu.ru/www/stat_pages22.show?p=STD/lks/D>)\n\u25b6\ufe0f [<LMS>](<https://lms.sfedu.ru>)\n\u25b6\ufe0f [<БРС>](<https://grade.sfedu.ru/>)\n\u25b6\ufe0f [<Сайт ИКТИБа>](<http://ictis.sfedu.ru/>)\n\u25b6\ufe0f [<Проектный офис ИКТИБ>](<https://proictis.sfedu.ru/>)'
-      bot.send_message(message.chat.id, text, parse_mode='MarkdownV2', reply_markup=markup_info)
+      text = '\u25b6\ufe0f [Личный кабинет студента](https://sfedu.ru/www/stat_pages22.show?p=STD/lks/D)\n\u25b6\ufe0f [LMS](https://lms.sfedu.ru)\n\u25b6\ufe0f [БРС](https://grade.sfedu.ru/)\n\u25b6\ufe0f [Сайт ИКТИБа](http://ictis.sfedu.ru/)\n\u25b6\ufe0f [Проектный офис ИКТИБ](https://proictis.sfedu.ru/)'
+      bot.send_message(message.chat.id, text, reply_markup=markup_info, parse_mode='MarkdownV2')
    elif message.text == "Группы Вконтакте":
-      text = '\u27a1\ufe0f [<Физическая культура в ИТА ЮФУ>](<https://vk.com/club101308251>)\n\u27a1\ufe0f [<Подслушано в ЮФУ>](<https://vk.com/overhearsfedu>)\n\u27a1\ufe0f [<ИКТИБ ЮФУ>](<https://vk.com/ictis_sfedu>)\n\u27a1\ufe0f [<Студенческий клуб ИТА ЮФУ (г. Таганрог)>](<https://vk.com/studclub_tgn>)\n\u27a1\ufe0f [<Студенческий киберспортивный клуб ЮФУ>](<https://vk.com/esports_sfedu>)\n\u27a1\ufe0f [<Культура здоровья в ИТА ЮФУ>](<https://vk.com/club150688847>)\n\u27a1\ufe0f [<ПервокурсникиУ>](<https://vk.com/1kurs_ita_2019>)\n\u27a1\ufe0f [<Технологии + Проекты + Инновации → ИКТИБ>](<https://vk.com/proictis>)\n\u27a1\ufe0f [<Волонтерский центр ИКТИБ ЮФУ>](<https://vk.com/ictis_vol>)'
-      bot.send_message(message.chat.id, text, parse_mode='MarkdownV2', reply_markup=markup_info)
+      text = '\u27A1\ufe0f [Физическая культура в ИТА ЮФУ](https://vk.com/club101308251)\n\u27A1\ufe0f [Подслушано в ЮФУ](https://vk.com/overhearsfedu)\n\u27A1\ufe0f [ИКТИБ ЮФУ](https://vk.com/ictis_sfedu)\n\u27A1\ufe0f [Студенческий клуб ИТА ЮФУ \(г\. Таганрог\)](https://vk.com/studclub_tgn)\n\u27A1\ufe0f  [Студенческий киберспортивный клуб ЮФУ](https://vk.com/esports_sfedu)\n\u27A1\ufe0f [Культура здоровья в ИТА ЮФУ](https://vk.com/club150688847)\n\u27A1\ufe0f [Первокурснику](https://vk.com/1kurs_ita_2019)\n\u27A1\ufe0f [Технологии \+ Проекты \+ Инновации ИКТИБ](https://vk.com/proictis)\n\u27A1\ufe0f [Волонтерский центр ИКТИБ ЮФУ](https://vk.com/ictis_vol)'
+      bot.send_message(message.chat.id, text, reply_markup=markup_info, parse_mode='MarkdownV2')
    elif message.text == "Корпус А":
       text = "Таганрог, улица Чехова, 22"
       bot.send_message(message.chat.id, text, reply_markup=markup_corps)
-      bot.send_location(chat_id='@shoraga_test', latitude="47°12′19″", longitude="38°56′23″")
+      bot.send_location(message.chat.id, latitude="47.205446", longitude="38.938832")
    else:
       bot.send_message(message.chat.id, "Вы вернулись назад", reply_markup=markup_menu)
 
-def get_schedule(day):
+
+def get_week_schedule(user_id):
+    url = "http://ictib.host1809541.hostland.pro/index.php/api/get_week_schedule"
+    params = dict(
+        user_id=user_id
+    )
+    resp = requests.get(url=url, params=params)
+    return resp.content
+
+def get_schedule(day, user_id):
    schedule = []
    pair_list = []
    url = "http://ictib.host1809541.hostland.pro/index.php/api/get_day_schedule"
    params = dict(
       day=day,
-      user_id='8745589874'
+      user_id=user_id
    )
    resp = requests.get(url=url, params=params)
+   print(resp.content)
    binary = resp.content
    data = json.loads(binary)
    for idx, pair in enumerate(data['pairs'], start=0):
@@ -158,16 +186,17 @@ def get_day_of_week(today):
       return 'Пнд'
 
 # SERVER SIDE 
-@server.route('/' + config.token, methods=['POST'])
-def getMessage():
-   bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
-   return "!", 200
-@server.route("/")
-def webhook():
-   bot.remove_webhook()
-   bot.set_webhook(url='https://infinite-waters-23955.herokuapp.com/' + TOKEN)
-   return "!", 200
-if __name__ == "__main__":
-   server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
+# @server.route('/' + config.token, methods=['POST'])
+# def getMessage():
+#    bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
+#    return "!", 200
+# @server.route("/")
+# def webhook():
+#    bot.remove_webhook()
+#    bot.set_webhook(url='https://infinite-waters-23955.herokuapp.com/' + TOKEN)
+#    return "!", 200
+# if __name__ == "__main__":
+#    server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
 
-   
+if __name__ == '__main__':
+    bot.polling(none_stop=True)
