@@ -1,7 +1,7 @@
 import os
 import telebot
 from telebot import types
-# from flask import Flask, request
+from flask import Flask, request
 import config
 import match
 import requests
@@ -9,7 +9,7 @@ import json
 import datetime
 
 bot = telebot.TeleBot(config.token)
-# server = Flask(__name__)
+server = Flask(__name__)
 TOKEN = config.token
 
 markup_menu = types.ReplyKeyboardMarkup(resize_keyboard=True)
@@ -185,18 +185,18 @@ def get_day_of_week(today):
       print('undefined')
       return 'Пнд'
 
-# SERVER SIDE 
-# @server.route('/' + config.token, methods=['POST'])
-# def getMessage():
-#    bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
-#    return "!", 200
-# @server.route("/")
-# def webhook():
-#    bot.remove_webhook()
-#    bot.set_webhook(url='https://infinite-waters-23955.herokuapp.com/' + TOKEN)
-#    return "!", 200
-# if __name__ == "__main__":
-#    server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
+SERVER SIDE 
+@server.route('/' + config.token, methods=['POST'])
+def getMessage():
+   bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
+   return "!", 200
+@server.route("/")
+def webhook():
+   bot.remove_webhook()
+   bot.set_webhook(url='https://infinite-waters-23955.herokuapp.com/' + TOKEN)
+   return "!", 200
+if __name__ == "__main__":
+   server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
 
 if __name__ == '__main__':
     bot.polling(none_stop=True)
