@@ -111,6 +111,34 @@ def handle_text(message):
       text = "Таганрог, улица Чехова, 22"
       bot.send_message(message.chat.id, text, reply_markup=markup_corps)
       bot.send_location(message.chat.id, latitude="47.205446", longitude="38.938832")
+   elif message.text == "Корпус Б":
+      text = "Таганрог, улица Чехова, 22"
+      bot.send_message(message.chat.id, text, reply_markup=markup_corps)
+      bot.send_location(message.chat.id, latitude="47.205396", longitude="38.938842")
+   elif message.text == "Корпус В":
+      text = "Таганрог, ул. Петровская, 81"
+      bot.send_message(message.chat.id, text, reply_markup=markup_corps)
+      bot.send_location(message.chat.id, latitude="47.216498", longitude="38.926859")
+   elif message.text == "Корпус Г":
+      text = "Таганрог, Некрасовский переулок, 42"
+      bot.send_message(message.chat.id, text, reply_markup=markup_corps)
+      bot.send_location(message.chat.id, latitude="47.203241", longitude="38.934853")
+   elif message.text == "Корпус Д":
+      text = "Таганрог, Некрасовский переулок, 44"
+      bot.send_message(message.chat.id, text, reply_markup=markup_corps)
+      bot.send_location(message.chat.id, latitude="47.205446", longitude="38.938832")
+   elif message.text == "Корпус Е":
+      text = "Таганрог, ул. Шевченко, 2"
+      bot.send_message(message.chat.id, text, reply_markup=markup_corps)
+      bot.send_location(message.chat.id, latitude="47.204446", longitude="38.944437")
+   elif message.text == "Корпус И":
+      text = "Таганрог, улица Чехова, 2"
+      bot.send_message(message.chat.id, text, reply_markup=markup_corps)
+      bot.send_location(message.chat.id, latitude="47.203932", longitude="38.943927")
+   elif message.text == "Корпус К":
+      text = "Таганрог, ул. Шевченко, 2"
+      bot.send_message(message.chat.id, text, reply_markup=markup_corps)
+      bot.send_location(message.chat.id, latitude="47.204446", longitude="38.944437")
    else:
       bot.send_message(message.chat.id, "Вы вернулись назад", reply_markup=markup_menu)
 
