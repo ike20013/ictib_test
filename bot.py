@@ -14,9 +14,9 @@ TOKEN = config.token
 
 markup_menu = types.ReplyKeyboardMarkup(resize_keyboard=True)
 markup_menu.row('Расписание группы')
-markup_menu.row('Изменение расписания')
 markup_menu.row('Собственное расписание')
 markup_menu.row('Информация о вузе')
+markup_menu.row('Настройки')
 
 markup_schedule = types.ReplyKeyboardMarkup(resize_keyboard=True)
 markup_schedule.row('Сегодня', 'Завтра')
@@ -57,15 +57,17 @@ def reg_user(message):
 
     if data['success'] == 'true':
         text = 'Все окей'
-        bot.send_message(chat_id, text, reply_markup=markup_menu)
+        bot.send_message(chat_id, text)
     elif data['success'] == 'false':
         msg = bot.reply_to(message, "Повтори")
         bot.register_next_step_handler(msg, reg_user)
     else:
-        bot.send_message(message.chat.id, "Ты уже есть", reply_markup=markup_menu)
+        msg = bot.reply_to(message, "Ты уже есть")
+        bot.register_next_step_handler(msg, reg_user)
 
 @bot.message_handler(content_types=['text'])
 def handle_text(message):
+   global group
    if message.text == "1":
       bot.send_message(message.chat.id, "Ну и нахуя", reply_markup=markup_menu)
    elif message.text == "Расписание группы":
@@ -139,8 +141,47 @@ def handle_text(message):
       text = "Таганрог, ул. Шевченко, 2"
       bot.send_message(message.chat.id, text, reply_markup=markup_corps)
       bot.send_location(message.chat.id, latitude="47.204446", longitude="38.944437")
+   elif message.text == "Настройки":
+      group = get_user_group(message.from_user.id)
+      markup_config = types.ReplyKeyboardMarkup(resize_keyboard=True)
+      markup_config.row("Группа: {}".format(group))
+      markup_config.row("Назад")
+      text = "Настройки"
+      bot.send_message(message.chat.id, text, reply_markup=markup_config)
+   elif message.text == "Группа: {}".format(group):
+      msg = bot.send_message(message.chat.id, "Введите группу (Пример КТбо2-3)")
+      bot.register_next_step_handler(msg, change_group)
    else:
       bot.send_message(message.chat.id, "Вы вернулись назад", reply_markup=markup_menu)
+
+def change_group(message):
+    url = "http://ictib.host1809541.hostland.pro/index.php/api/change_user_group"
+    print(message.text)
+    params = dict(
+       user_id=message.from_user.id,
+       user_group=message.text
+    )
+    resp = requests.get(url=url, params=params)
+    print(resp.content)
+    binary = resp.content
+    data = json.loads(binary)
+
+    chat_id = message.chat.id
+
+    if data['success'] == 'true':
+        global group
+        text = 'Все окей'
+        group = message.text
+        markup_config = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        markup_config.row("Группа: {}".format(group))
+        markup_config.row("Назад")
+        bot.send_message(chat_id, text, reply_markup=markup_config)
+    elif data['success'] == 'false':
+        msg = bot.reply_to(message, "Повтори")
+        bot.register_next_step_handler(msg, change_group)
+    else:
+        msg = bot.reply_to(message, "Ты уже есть")
+        bot.register_next_step_handler(msg, change_group)
 
 
 def get_week_schedule(user_id):
@@ -211,6 +252,18 @@ def get_day_of_week(today):
    else:
       print('undefined')
       return 'Пнд'
+
+def get_user_group(user_id):
+   url = "http://ictib.host1809541.hostland.pro/index.php/api/get_info"
+   params = dict(
+      user_id=user_id
+   )
+   resp = requests.get(url=url, params=params)
+   binary = resp.content
+   data = json.loads(binary)
+   user_group = data['user_group']
+   return user_group
+
 
 # SERVER SIDE 
 @server.route('/' + config.token, methods=['POST'])
