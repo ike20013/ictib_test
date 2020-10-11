@@ -8,6 +8,7 @@ import requests
 import json 
 import datetime
 
+
 bot = telebot.TeleBot(config.token)
 server = Flask(__name__)
 TOKEN = config.token
@@ -34,6 +35,18 @@ markup_corps = types.ReplyKeyboardMarkup(resize_keyboard=True)
 markup_corps.row('Корпус А', 'Корпус Б', 'Корпус В', 'Корпус Г')
 markup_corps.row('Корпус Д','Корпус Е','Корпус И','Корпус К',)
 markup_corps.row('Назад')
+
+markup_user_schedule = types.ReplyKeyboardMarkup(resize_keyboard=True)
+markup_user_schedule.row('Удалить пару', 'Редактировать')
+markup_user_schedule.row('Назад')
+
+markup_user_schedule_day = types.InlineKeyboardMarkup(row_width=3)
+markup_user_schedule_day.row('Пнд', 'Втр', 'Срд')
+markup_user_schedule_day.row('Чтв', 'Птн', 'Сбт')
+
+markup_user_schedule_pair_count = types.InlineKeyboardMarkup(row_width=3)
+markup_user_schedule_pair_count.row('1', '2', '3')
+markup_user_schedule_pair_count.row('4', '5', '6')
 
 
 @bot.message_handler(commands=['start'])
@@ -71,7 +84,6 @@ def handle_text(message):
    if message.text == "1":
       bot.send_message(message.chat.id, "Ну и нахуя", reply_markup=markup_menu)
    elif message.text == "Расписание группы":
-      week = get_week_schedule(message.from_user.id)
       bot.send_message(message.chat.id, "Выберите день", reply_markup=markup_schedule)
    elif message.text == "Информация о вузе":
       bot.send_message(message.chat.id, "Какая информация вам инетересна?", reply_markup=markup_info)
@@ -151,6 +163,10 @@ def handle_text(message):
    elif message.text == "Группа: {}".format(group):
       msg = bot.send_message(message.chat.id, "Введите группу (Пример КТбо2-3)")
       bot.register_next_step_handler(msg, change_group)
+   elif message.text == "Собственное расписание":
+      bot.send_message(message.chat.id, "Выберите день", reply_markup=markup_user_schedule_day)
+      if message.text == "Пнд":
+         bot.send_message(message.chat.id, "Выберите пару", reply_markup=markup_user_schedule_pair_count)
    else:
       bot.send_message(message.chat.id, "Вы вернулись назад", reply_markup=markup_menu)
 
