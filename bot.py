@@ -84,6 +84,7 @@ def handle_text(message):
    if message.text == "1":
       bot.send_message(message.chat.id, "Ну и нахуя", reply_markup=markup_menu)
    elif message.text == "Расписание группы":
+      week = get_week_schedule(message.from_user.id)
       bot.send_message(message.chat.id, "Выберите день", reply_markup=markup_schedule)
    elif message.text == "Информация о вузе":
       bot.send_message(message.chat.id, "Какая информация вам инетересна?", reply_markup=markup_info)
