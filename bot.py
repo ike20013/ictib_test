@@ -40,11 +40,11 @@ markup_user_schedule = types.ReplyKeyboardMarkup(resize_keyboard=True)
 markup_user_schedule.row('Удалить пару', 'Редактировать')
 markup_user_schedule.row('Назад')
 
-markup_user_schedule_day = types.InlineKeyboardMarkup(row_width=3)
+markup_user_schedule_day = types.InlineKeyboardMarkup(resize_keyboard=True)
 markup_user_schedule_day.row('Пнд', 'Втр', 'Срд')
 markup_user_schedule_day.row('Чтв', 'Птн', 'Сбт')
 
-markup_user_schedule_pair_count = types.InlineKeyboardMarkup(row_width=3)
+markup_user_schedule_pair_count = types.InlineKeyboardMarkup(resize_keyboard=True)
 markup_user_schedule_pair_count.row('1', '2', '3')
 markup_user_schedule_pair_count.row('4', '5', '6')
 
@@ -84,6 +84,7 @@ def handle_text(message):
    if message.text == "1":
       bot.send_message(message.chat.id, "Ну и нахуя", reply_markup=markup_menu)
    elif message.text == "Расписание группы":
+      get_week_schedule(message.from_user.id)
       bot.send_message(message.chat.id, "Выберите день", reply_markup=markup_schedule)
    elif message.text == "Информация о вузе":
       bot.send_message(message.chat.id, "Какая информация вам инетересна?", reply_markup=markup_info)
