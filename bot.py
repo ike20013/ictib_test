@@ -40,13 +40,24 @@ markup_user_schedule = types.ReplyKeyboardMarkup(resize_keyboard=True)
 markup_user_schedule.row('Удалить пару', 'Редактировать')
 markup_user_schedule.row('Назад')
 
-markup_user_schedule_day = types.InlineKeyboardMarkup(row_width=3)
-markup_user_schedule_day.row('Пнд', 'Втр', 'Срд')
-markup_user_schedule_day.row('Чтв', 'Птн', 'Сбт')
+# markup_user_schedule_day = types.InlineKeyboardMarkup(resize_keyboard=True)
+# markup_user_schedule_day.row('Пнд', 'Втр', 'Срд')
+# markup_user_schedule_day.row('Чтв', 'Птн', 'Сбт')
 
-markup_user_schedule_pair_count = types.InlineKeyboardMarkup(row_width=3)
-markup_user_schedule_pair_count.row('1', '2', '3')
-markup_user_schedule_pair_count.row('4', '5', '6')
+# markup_user_schedule_pair_count = types.InlineKeyboardMarkup(resize_keyboard=True)
+# markup_user_schedule_pair_count.row('1', '2', '3')
+# markup_user_schedule_pair_count.row('4', '5', '6')
+
+def gen_markup():
+   markup = types.InlineKeyboardMarkup()
+   markup.row_width = 3
+   markup.add(types.InlineKeyboardButton("Yes", callback_data="cb_yes"),
+            types.InlineKeyboardButton("No", callback_data="cb_no1"),
+            types.InlineKeyboardButton("No", callback_data="cb_no2"),
+            types.InlineKeyboardButton("No", callback_data="cb_no3"),
+            types.InlineKeyboardButton("No", callback_data="cb_no4"),
+            types.InlineKeyboardButton("No", callback_data="cb_no5"))
+   return markup
 
 
 @bot.message_handler(commands=['start'])
@@ -80,11 +91,15 @@ def reg_user(message):
 
 @bot.message_handler(content_types=['text'])
 def handle_text(message):
-   global group
+   global group = "КТбо2-3"
    if message.text == "1":
       bot.send_message(message.chat.id, "Ну и нахуя", reply_markup=markup_menu)
    elif message.text == "Расписание группы":
+<<<<<<< HEAD
       week = get_week_schedule(message.from_user.id)
+=======
+      get_week_schedule(message.from_user.id)
+>>>>>>> 76ef833ed6de73c2d1260a02844f29799126287a
       bot.send_message(message.chat.id, "Выберите день", reply_markup=markup_schedule)
    elif message.text == "Информация о вузе":
       bot.send_message(message.chat.id, "Какая информация вам инетересна?", reply_markup=markup_info)
@@ -165,9 +180,9 @@ def handle_text(message):
       msg = bot.send_message(message.chat.id, "Введите группу (Пример КТбо2-3)")
       bot.register_next_step_handler(msg, change_group)
    elif message.text == "Собственное расписание":
-      bot.send_message(message.chat.id, "Выберите день", reply_markup=markup_user_schedule_day)
-      if message.text == "Пнд":
-         bot.send_message(message.chat.id, "Выберите пару", reply_markup=markup_user_schedule_pair_count)
+      bot.send_message(message.chat.id, "Выберите день", reply_markup=gen_markup())
+      # if message.text == "Пнд":
+      #    bot.send_message(message.chat.id, "Выберите пару", reply_markup=markup_user_schedule_pair_count)
    else:
       bot.send_message(message.chat.id, "Вы вернулись назад", reply_markup=markup_menu)
 
