@@ -144,12 +144,12 @@ def handle_text(message):
       url_button2 = types.InlineKeyboardButton(text="Подслушано в ЮФУ", url="https://vk.com/overhearsfedu")
       url_button3 = types.InlineKeyboardButton(text="ИКТИБ ЮФУ", url="https://vk.com/ictis_sfedu")
       url_button4 = types.InlineKeyboardButton(text="Студенческий клуб ИТА ЮФУ (г. Таганрог)", url="https://vk.com/studclub_tgn")
-      url_button6 = types.InlineKeyboardButton(text="Студенческий киберспортивный клуб ЮФУ", url="https://vk.com/esports_sfedu")
-      url_button7 = types.InlineKeyboardButton(text="Культура здоровья в ИТА ЮФУ", url="https://vk.com/club150688847")
-      url_button8 = types.InlineKeyboardButton(text="Первокурснику", url="https://vk.com/1kurs_ita_2019")
-      url_button9 = types.InlineKeyboardButton(text="Технологии + Проекты + Инновации ИКТИБ", url="https://vk.com/proictis")
-      url_button10 = types.InlineKeyboardButton(text="Волонтерский центр ИКТИБ ЮФУ", url="https://vk.com/ictis_vol")
-      keyboard.add(url_button1, url_button2, url_button3, url_button4, url_button5, url_button6, url_button7, url_button8, url_button9, url_button10)
+      url_button5 = types.InlineKeyboardButton(text="Студенческий киберспортивный клуб ЮФУ", url="https://vk.com/esports_sfedu")
+      url_button6 = types.InlineKeyboardButton(text="Культура здоровья в ИТА ЮФУ", url="https://vk.com/club150688847")
+      url_button7 = types.InlineKeyboardButton(text="Первокурснику", url="https://vk.com/1kurs_ita_2019")
+      url_button8 = types.InlineKeyboardButton(text="Технологии + Проекты + Инновации ИКТИБ", url="https://vk.com/proictis")
+      url_button9 = types.InlineKeyboardButton(text="Волонтерский центр ИКТИБ ЮФУ", url="https://vk.com/ictis_vol")
+      keyboard.add(url_button1, url_button2, url_button3, url_button4, url_button5, url_button6, url_button7, url_button8, url_button9)
       bot.send_message(message.chat.id, "Что вас инетересует?", reply_markup=keyboard)
    elif message.text == "Корпус А":
       text = "Таганрог, улица Чехова, 22"
