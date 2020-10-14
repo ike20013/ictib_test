@@ -48,6 +48,8 @@ markup_user_schedule.row('Назад')
 # markup_user_schedule_pair_count.row('1', '2', '3')
 # markup_user_schedule_pair_count.row('4', '5', '6')
 
+group = "КТбо2-3"
+
 def gen_markup():
    markup = types.InlineKeyboardMarkup()
    markup.row_width = 3
@@ -92,7 +94,7 @@ def reg_user(message):
 @bot.message_handler(content_types=['text'])
 def handle_text(message):
    global group
-   group = "КТбо2-3"
+
    if message.text == "1":
       bot.send_message(message.chat.id, "Ну и нахуя", reply_markup=markup_menu)
    elif message.text == "Расписание группы":
@@ -210,10 +212,10 @@ def change_group(message):
         markup_config.row("Назад")
         bot.send_message(chat_id, text, reply_markup=markup_config)
     elif data['success'] == 'false':
-        msg = bot.reply_to(message, "Повтори")
+        msg = bot.reply_to(message, "Повторите попытку")
         bot.register_next_step_handler(msg, change_group)
     else:
-        msg = bot.reply_to(message, "Ты уже есть")
+        msg = bot.reply_to(message, "Вы уже записанны под этой группой")
         bot.register_next_step_handler(msg, change_group)
 
 
