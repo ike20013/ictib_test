@@ -131,6 +131,7 @@ def handle_text(message):
       bot.send_message(message.chat.id, text, reply_markup=markup_schedule)
    elif message.text == "Основные сайты":
       keyboard = types.InlineKeyboardMarkup()
+      keyboard.row_width = 1
       url_button1 = types.InlineKeyboardButton(text="Личный кабинет студента", url="https://www.sfedu.ru/www/stat_pages22.show?p=STD/lks/D")
       url_button2 = types.InlineKeyboardButton(text="LMS", url="https://lms.sfedu.ru")
       url_button3 = types.InlineKeyboardButton(text="БРС", url="https://grade.sfedu.ru/")
@@ -140,6 +141,7 @@ def handle_text(message):
       bot.send_message(message.chat.id, "Что вас инетересует?", reply_markup=keyboard)
    elif message.text == "Группы Вконтакте":
       keyboard = types.InlineKeyboardMarkup()
+      keyboard.row_width = 1
       url_button1 = types.InlineKeyboardButton(text="Физическая культура в ИТА ЮФУ", url="https://vk.com/club101308251")
       url_button2 = types.InlineKeyboardButton(text="Подслушано в ЮФУ", url="https://vk.com/overhearsfedu")
       url_button3 = types.InlineKeyboardButton(text="ИКТИБ ЮФУ", url="https://vk.com/ictis_sfedu")
