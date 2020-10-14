@@ -92,6 +92,7 @@ def reg_user(message):
 @bot.message_handler(content_types=['text'])
 def handle_text(message):
    global group
+   group = "Неизвестно"
    if message.text == "1":
       bot.send_message(message.chat.id, "Ну и нахуя", reply_markup=markup_menu)
    elif message.text == "Расписание группы":
