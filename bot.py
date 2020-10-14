@@ -131,14 +131,15 @@ def handle_text(message):
       bot.send_message(message.chat.id, text, reply_markup=markup_schedule)
    elif message.text == "Основные сайты":
       keyboard = types.InlineKeyboardMarkup()
-      url_button1 = types.InlineKeyboardButton(text="Личный кабинет студента", url="https://sfedu.ru/www/stat_pages22.show?p=STD/lks/Du")
-      url_button2 = types.InlineKeyboardButton(text="LMS", url="https://lms.sfedu.ruu")
+      url_button1 = types.InlineKeyboardButton(text="Личный кабинет студента", url="https://www.sfedu.ru/www/stat_pages22.show?p=STD/lks/D")
+      url_button2 = types.InlineKeyboardButton(text="LMS", url="https://lms.sfedu.ru")
       url_button3 = types.InlineKeyboardButton(text="БРС", url="https://grade.sfedu.ru/")
       url_button4 = types.InlineKeyboardButton(text="Сайт ИКТИБа", url="http://ictis.sfedu.ru/")
       url_button5 = types.InlineKeyboardButton(text="Проектный офис ИКТИБ", url="https://proictis.sfedu.ru/")
       keyboard.add(url_button1, url_button2, url_button3, url_button4, url_button5)
       bot.send_message(message.chat.id, "Что вас инетересует?", reply_markup=keyboard)
    elif message.text == "Группы Вконтакте":
+      keyboard = types.InlineKeyboardMarkup()
       url_button1 = types.InlineKeyboardButton(text="Физическая культура в ИТА ЮФУ", url="https://vk.com/club101308251")
       url_button2 = types.InlineKeyboardButton(text="Подслушано в ЮФУ", url="https://vk.com/overhearsfedu")
       url_button3 = types.InlineKeyboardButton(text="ИКТИБ ЮФУ", url="https://vk.com/ictis_sfedu")
