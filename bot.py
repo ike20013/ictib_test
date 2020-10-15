@@ -185,6 +185,7 @@ def handle_text(message):
       bot.send_message(message.chat.id, text, reply_markup=markup_corps)
       bot.send_location(message.chat.id, latitude="47.204446", longitude="38.944437")
    elif message.text == "Настройки":
+      group = "Неизвестно"
       group = get_user_group(message.from_user.id)
       markup_config = types.ReplyKeyboardMarkup(resize_keyboard=True)
       markup_config.row("Группа: {}".format(group))
