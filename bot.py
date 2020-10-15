@@ -91,6 +91,7 @@ def reg_user(message):
         msg = bot.reply_to(message, "Ты уже есть")
         bot.register_next_step_handler(msg, reg_user)
 
+
 @bot.message_handler(content_types=['text'])
 def handle_text(message):
    global group
