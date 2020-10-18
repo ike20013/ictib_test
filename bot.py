@@ -8,10 +8,9 @@ import requests
 import json 
 import datetime
 
-
-bot = telebot.TeleBot(config.token)
+TOKEN = '1271897314:AAG1c6rZ8JnGtRA2Mx1mJ1A7LOHCo_-ysVY'
+bot = telebot.TeleBot(TOKEN)
 server = Flask(__name__)
-TOKEN = config.token
 
 markup_menu = types.ReplyKeyboardMarkup(resize_keyboard=True)
 markup_menu.row('Расписание группы')
