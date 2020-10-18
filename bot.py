@@ -209,9 +209,7 @@ def handle_text(message):
       msg = bot.send_message(message.chat.id, "Введите группу (Пример КТбо2-3)")
       bot.register_next_step_handler(msg, change_group)
    elif message.text == "Собственное расписание":
-      bot.send_message(message.chat.id, "Выберите день", reply_markup=gen_markup1())
-      if message.text == "Пнд":
-         bot.send_message(message.chat.id, "Выберите пару", reply_markup=gen_markup())
+      bot.send_message(message.chat.id, "Выберите день", reply_markup=gen_markup())
    else:
       bot.send_message(message.chat.id, "Вы вернулись назад", reply_markup=markup_menu)
 
