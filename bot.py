@@ -51,13 +51,26 @@ markup_user_schedule.row('Назад')
 def gen_markup():
    markup = types.InlineKeyboardMarkup()
    markup.row_width = 3
-   markup.add(types.InlineKeyboardButton("Yes", callback_data="cb_yes"),
-            types.InlineKeyboardButton("No", callback_data="cb_no1"),
-            types.InlineKeyboardButton("No", callback_data="cb_no2"),
-            types.InlineKeyboardButton("No", callback_data="cb_no3"),
-            types.InlineKeyboardButton("No", callback_data="cb_no4"),
-            types.InlineKeyboardButton("No", callback_data="cb_no5"))
+   markup.add(types.InlineKeyboardButton("1 -Yes", callback_data="cb_yes"),
+            types.InlineKeyboardButton("2 - No", callback_data="cb_no1"),
+            types.InlineKeyboardButton("3 - No", callback_data="cb_no2"),
+            types.InlineKeyboardButton("4 - No", callback_data="cb_no3"),
+            types.InlineKeyboardButton("5 - No", callback_data="cb_no4"),
+            types.InlineKeyboardButton("6 - No", callback_data="cb_no5"),
+            types.InlineKeyboardButton("7 - No", callback_data="cb_no6"))
    return markup
+
+def gen_markup1():
+   markup = types.InlineKeyboardMarkup()
+   markup.row_width = 3
+   markup.add(types.InlineKeyboardButton("Пнд", callback_data="cb_yes"),
+            types.InlineKeyboardButton("Втр", callback_data="cb_no1"),
+            types.InlineKeyboardButton("Срд", callback_data="cb_no2"),
+            types.InlineKeyboardButton("Чтв", callback_data="cb_no3"),
+            types.InlineKeyboardButton("Птн", callback_data="cb_no4"),
+            types.InlineKeyboardButton("Сбт", callback_data="cb_no5"))
+   return markup
+
 
 
 @bot.message_handler(commands=['start'])
@@ -196,9 +209,9 @@ def handle_text(message):
       msg = bot.send_message(message.chat.id, "Введите группу (Пример КТбо2-3)")
       bot.register_next_step_handler(msg, change_group)
    elif message.text == "Собственное расписание":
-      bot.send_message(message.chat.id, "Выберите день", reply_markup=gen_markup())
-      # if message.text == "Пнд":
-      #    bot.send_message(message.chat.id, "Выберите пару", reply_markup=markup_user_schedule_pair_count)111
+      bot.send_message(message.chat.id, "Выберите день", reply_markup=gen_markup1())
+      if message.text == "Пнд":
+         bot.send_message(message.chat.id, "Выберите пару", reply_markup=gen_markup())
    else:
       bot.send_message(message.chat.id, "Вы вернулись назад", reply_markup=markup_menu)
 
