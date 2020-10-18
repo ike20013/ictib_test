@@ -52,11 +52,11 @@ def gen_markup():
    markup = types.InlineKeyboardMarkup()
    markup.row_width = 3
    markup.add(types.InlineKeyboardButton("1 -Yes", callback_data="cb_yes"),
-            types.InlineKeyboardButton("2 - No", callback_data="cb_no1"),
+            types.InlineKeyboardButton("2 - Yes", callback_data="cb_no1"),
             types.InlineKeyboardButton("3 - No", callback_data="cb_no2"),
-            types.InlineKeyboardButton("4 - No", callback_data="cb_no3"),
-            types.InlineKeyboardButton("5 - No", callback_data="cb_no4"),
-            types.InlineKeyboardButton("6 - No", callback_data="cb_no5"),
+            types.InlineKeyboardButton("4 - Yes", callback_data="cb_no3"),
+            types.InlineKeyboardButton("5 - Yes", callback_data="cb_no4"),
+            types.InlineKeyboardButton("6 - Yes", callback_data="cb_no5"),
             types.InlineKeyboardButton("7 - No", callback_data="cb_no6"))
    return markup
 
